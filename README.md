@@ -201,6 +201,11 @@ Note that goldmark heavily uses `[]byte`. `go.bytes` package simply exports Go f
 ### For dynamic extension authors
 It is recommended that dynamic extensions have a name prefixed with `goldmark-dynamic-` allow users to distinguish a language in which an extension written. For instance, `goldmark-dynamic-admonition'(an extension written in Lua) and `goldmark-admonition`(an extension written in Go).
 
+### List of dynamic extensions
+Please let me known your dynamic extensions by a pull requst that updates the list.
+
+- [_examples](https://github.com/yuin/goldmark-dynamic/_examples) : dynamic extension examples
+
 TODO
 --------------------
 Contributions are welcome.
