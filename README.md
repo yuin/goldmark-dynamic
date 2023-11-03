@@ -204,7 +204,7 @@ It is recommended that dynamic extensions have a name prefixed with `goldmark-dy
 ### List of dynamic extensions
 Please let me known your dynamic extensions by a pull requst that updates the list.
 
-- [_examples](https://github.com/yuin/goldmark-dynamic/_examples) : dynamic extension examples
+- [_examples](https://github.com/yuin/goldmark-dynamic/tree/main/_examples) : dynamic extension examples
 
 TODO
 --------------------
