@@ -32,9 +32,9 @@ func WithFS(f fs.StatFS) Option {
 }
 
 // WithExtensions is an option that sets files for scripts.
-func WithExtensions(f func() []Extension) Option {
+func WithExtensions(v []Extension) Option {
 	return func(e *dynamic) {
-		e.extensions = f
+		e.extensions = v
 	}
 }
 
@@ -52,7 +52,7 @@ type options interface {
 
 type dynamic struct {
 	fs         fs.StatFS
-	extensions func() []Extension
+	extensions []Extension
 	onError    func(error)
 }
 
@@ -60,9 +60,6 @@ type dynamic struct {
 func New(opts ...Option) goldmark.Extender {
 	e := &dynamic{
 		fs: os.DirFS(".").(fs.StatFS),
-		extensions: func() []Extension {
-			return []Extension{}
-		},
 		onError: func(err error) {
 			panic(err)
 		},
@@ -162,7 +159,7 @@ func (e *dynamic) Extend(m goldmark.Markdown) {
 	loaders, _ := l.GetField(l.Get(lua.RegistryIndex), "_LOADERS").(*lua.LTable)
 	loaders.Append(l.NewFunction(fsLoader))
 
-	for _, extension := range e.extensions() {
+	for _, extension := range e.extensions {
 		fn, err := loadLuaFileFS(l, e.fs, extension.File)
 		if err != nil {
 			e.onError(err)

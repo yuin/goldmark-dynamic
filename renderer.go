@@ -56,8 +56,20 @@ func exportGoldmarkRendererHTML(l *lua.LState, opts options) {
 				value: html.WithEastAsianLineBreaks,
 			},
 			{
-				name:  "WithEscapedSpace",
+				name:  "withEscapedSpace",
 				value: html.WithEscapedSpace,
+			},
+			{
+				name:  "isDangerousURL",
+				value: html.IsDangerousURL,
+			},
+			{
+				name:  "renderAttributes",
+				value: html.RenderAttributes,
+			},
+			{
+				name:  "globalAttributeFilter",
+				value: html.GlobalAttributeFilter,
 			},
 		} {
 			mod.RawSetString(def.name, luar.New(l, def.value))

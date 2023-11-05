@@ -9,6 +9,8 @@ import (
 func exportGoldmarkText(l *lua.LState, opts options) {
 	l.PreloadModule("goldmark.text", func(l *lua.LState) int {
 		mod := l.NewTable()
+		mod.RawSetString("FindClosureOptions", luar.NewType(l, text.FindClosureOptions{}))
+
 		mt := l.NewTypeMetatable("Segment")
 		mod.RawSetString("Segment", mt)
 		l.SetField(mt, "new", l.NewFunction(func(l *lua.LState) int {

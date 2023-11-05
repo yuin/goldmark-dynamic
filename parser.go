@@ -42,8 +42,28 @@ func exportGoldmarkParser(l *lua.LState, opts options) {
 				value: parser.RequireParagraph,
 			},
 			{
+				name:  "defaultBlockParsers",
+				value: parser.DefaultBlockParsers,
+			},
+			{
+				name:  "defaultInlineParsers",
+				value: parser.DefaultInlineParsers,
+			},
+			{
+				name:  "defaultParagraphTransformers",
+				value: parser.DefaultParagraphTransformers,
+			},
+			{
+				name:  "processDelimiters",
+				value: parser.ProcessDelimiters,
+			},
+			{
 				name:  "newContextKey",
 				value: parser.NewContextKey,
+			},
+			{
+				name:  "newReference",
+				value: parser.NewReference,
 			},
 			{
 				name:  "scanDelimiter",

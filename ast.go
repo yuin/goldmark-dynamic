@@ -36,6 +36,18 @@ func exportGoldmarkAST(l *lua.LState, opts options) {
 				value: ast.Walk,
 			},
 			{
+				name:  "isParagraph",
+				value: ast.IsParagraph,
+			},
+			{
+				name:  "mergeOrAppendTextSegment",
+				value: ast.MergeOrAppendTextSegment,
+			},
+			{
+				name:  "mergeOrReplaceTextSegment",
+				value: ast.MergeOrReplaceTextSegment,
+			},
+			{
 				name:  "kindAutoLink",
 				value: ast.KindAutoLink,
 			},

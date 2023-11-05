@@ -58,8 +58,7 @@ func main() {
     markdown := goldmark.New(
         goldmark.WithExtensions(
             dynamic.New(
-                  dynamic.WithExtensions(func() []dynamic.Extension {
-                    return []dynamic.Extension{
+                  dynamic.WithExtensions([]dynamic.Extension{
                         {
                             File: "mention.lua",
                             Options: map[string]string{
