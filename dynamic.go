@@ -54,10 +54,11 @@ type dynamic struct {
 	fs         fs.StatFS
 	extensions []Extension
 	onError    func(error)
+	states     []*lua.LState
 }
 
 // New creates a new goldmark-dynamic extension.
-func New(opts ...Option) goldmark.Extender {
+func New(opts ...Option) (goldmark.Extender, func()) {
 	e := &dynamic{
 		fs: os.DirFS(".").(fs.StatFS),
 		onError: func(err error) {
@@ -67,7 +68,11 @@ func New(opts ...Option) goldmark.Extender {
 	for _, opt := range opts {
 		opt(e)
 	}
-	return e
+	return e, func() {
+		for _, l := range e.states {
+			l.Close()
+		}
+	}
 }
 
 func (e *dynamic) OnError() func(error) {
@@ -111,6 +116,7 @@ func exportGoldmark(l *lua.LState, opts options) {
 
 func (e *dynamic) Extend(m goldmark.Markdown) {
 	l := lua.NewState()
+	e.states = append(e.states, l)
 	exportGoBytes(l, e)
 	exportGoldmark(l, e)
 	exportGoldmarkUtil(l, e)

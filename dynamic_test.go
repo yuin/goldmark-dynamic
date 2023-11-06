@@ -10,31 +10,32 @@ import (
 )
 
 func TestDynamic(t *testing.T) {
+	ext, cleanup :=
+		New(
+			WithExtensions([]Extension{
+				{
+					File: "_examples/mention.lua",
+					Options: map[string]string{
+						"class": "user-mention",
+					},
+				},
+				{
+					File: "_examples/admonition.lua",
+					Options: map[string]string{
+						"prefix": "admonition-",
+					},
+				},
+				{
+					File: "_examples/open_in_new_window.lua",
+					Options: map[string]string{
+						"base": "http://self.example.com",
+					},
+				},
+			}),
+		)
+	defer cleanup()
 	markdown := goldmark.New(
-		goldmark.WithExtensions(
-			New(
-				WithExtensions([]Extension{
-					{
-						File: "_examples/mention.lua",
-						Options: map[string]string{
-							"class": "user-mention",
-						},
-					},
-					{
-						File: "_examples/admonition.lua",
-						Options: map[string]string{
-							"prefix": "admonition-",
-						},
-					},
-					{
-						File: "_examples/open_in_new_window.lua",
-						Options: map[string]string{
-							"base": "http://self.example.com",
-						},
-					},
-				}),
-			),
-		),
+		goldmark.WithExtensions(ext),
 	)
 
 	testutil.DoTestCase(

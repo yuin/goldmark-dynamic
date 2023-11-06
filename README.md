@@ -55,23 +55,24 @@ import (
 )
 
 func main() {
+    ext, cleanup =  
+        dynamic.New(
+             dynamic.WithExtensions([]dynamic.Extension{
+                   {
+                       File: "mention.lua",
+                       Options: map[string]string{
+                           "class": "user-mention",
+                       },
+                   },
+               }
+             }),
+             dynamic.WithOnError(func(err error) {
+                fmt.Fprintln(os.Stderr, err.Error())
+             }),
+       )
+    defer cleanup()
     markdown := goldmark.New(
-        goldmark.WithExtensions(
-            dynamic.New(
-                  dynamic.WithExtensions([]dynamic.Extension{
-                        {
-                            File: "mention.lua",
-                            Options: map[string]string{
-                                "class": "user-mention",
-                            },
-                        },
-                    }
-                  }),
-                  dynamic.WithOnError(func(err error) {
-                     fmt.Fprintln(os.Stderr, err.Error())
-                  }),
-            ),
-        ),
+        goldmark.WithExtensions(ext),
     )
     // codes use markdown
 }
